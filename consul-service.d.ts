@@ -1,0 +1,45 @@
+import { OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import * as Consul from 'consul';
+import { IService, IServiceNode } from '@nestcloud/common';
+import { IServiceOptions } from './interfaces/service-options.interface';
+export declare class ConsulService implements OnModuleInit, OnModuleDestroy, IService {
+    private readonly consul;
+    private store;
+    private readonly logger;
+    private readonly discoveryHost;
+    private readonly serviceId;
+    private readonly serviceName;
+    private readonly servicePort;
+    private readonly serviceTags;
+    private readonly healthCheck;
+    private readonly timeout;
+    private readonly deregisterCriticalServiceAfter;
+    private readonly interval;
+    private readonly maxRetry;
+    private readonly retryInterval;
+    private readonly protocol;
+    private readonly route;
+    private readonly tcp;
+    private readonly script;
+    private readonly dockerContainerId;
+    private readonly shell;
+    private readonly ttl;
+    private readonly notes;
+    private readonly status;
+    private readonly includes;
+    private readonly connect;
+    constructor(consul: Consul, options: IServiceOptions);
+    init(): Promise<void>;
+    watch(service: string, callback: (services: IServiceNode[]) => void): void;
+    watchServiceList(callback: (service: string[]) => void): void;
+    getServices(): {
+        [service: string]: IServiceNode[];
+    };
+    getServiceNames(): string[];
+    getServiceNodes(service: string, passing?: boolean): IServiceNode[];
+    onModuleInit(): Promise<any>;
+    onModuleDestroy(): Promise<any>;
+    private generateService;
+    private registerService;
+    private cancelService;
+}
